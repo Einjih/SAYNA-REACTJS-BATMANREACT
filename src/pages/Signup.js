@@ -15,7 +15,7 @@ const onSubmit = async (e)=>{
     setError('');
     try{
       await createUser(email,password);
-      navigate('/compte')
+      navigate('/compte');
     } catch{
       setError(e.message);
 console.log(e.message);

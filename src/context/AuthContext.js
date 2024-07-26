@@ -1,6 +1,6 @@
 import { createContext,useContext, useEffect, useState } from "react";
 import { auth } from '../config-firebase';
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 
 const UserContext = createContext();
@@ -17,12 +17,28 @@ const createUser = (email,password)=> {
 
 //pour avoir le currentUser
 useEffect(()=>{
-    onAuthStateChanged(auth, ()=>{
+     onAuthStateChanged(auth, (currentUser)=>{
+      setUser(currentUser);
+      console.log(currentUser);
+    });
+    
+},[]);
 
-    })
-},[])
 
-    return <UserContext.Provider value={{createUser}}>
+//déconnexion
+const logout = () => {
+    signOut(auth);
+}
+
+//Connexion
+
+const login = (email, password) => {
+     return signInWithEmailAndPassword(auth, email, password);
+}
+
+//Les vaeurs des fonctions à exporter
+
+    return <UserContext.Provider value={{createUser, user, logout, login}}>
         {children}
     </UserContext.Provider>
 }
