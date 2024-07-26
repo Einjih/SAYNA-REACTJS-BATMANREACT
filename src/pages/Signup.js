@@ -1,12 +1,27 @@
 import React, { useState } from 'react'
 import '../styles/signup.css'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
+import { UserAuth } from '../context/AuthContext';
 
 function Signup() {
     const [email, setEmail] = useState(''); //décomposition
     const [password, setPassword] = useState('');
-const onSubmit = (e)=>{
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+
+    const {createUser} = UserAuth();
+const onSubmit = async (e)=>{
     e.preventDefault();
+    setError('');
+    try{
+      await createUser(email,password);
+      navigate('/compte')
+    } catch{
+      setError(e.message);
+console.log(e.message);
+    }
+
+    
      console.log(email);
      console.log(password);
 }
@@ -17,7 +32,7 @@ const onSubmit = (e)=>{
         <section id='hero'>
         <div className='hero-image'>
 <div className="container">
-    <h1 className='hero-title text-uppercase text-white' ></h1>
+    
 </div>
         </div>
         </section>
@@ -46,7 +61,7 @@ const onSubmit = (e)=>{
   <button type="submit" className="btn btn-primary">Submit</button>
 </form>
 
-            
+            <div className="">{error}</div>
 
             </div>
         </div>

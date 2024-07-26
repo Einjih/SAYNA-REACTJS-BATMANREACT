@@ -9,12 +9,14 @@ import MonCompte from '../pages/MonCompte';
 import NotFoundPage from '../pages/NotFoundPage';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
+import { AuthContextProvider } from '../context/AuthContext';
 
 function App() {
   return (
     <>
     
 <BrowserRouter>
+<AuthContextProvider>
   <Routes>
     <Route path='/' element={<Layout/>}>
     <Route index element={<Home/>}/>
@@ -27,6 +29,7 @@ function App() {
     <Route path='*' element={<NotFoundPage/>}/>
     </Route>
   </Routes>
+  </AuthContextProvider>
 </BrowserRouter>
 
 
