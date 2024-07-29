@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import '../styles/signup.css'
 import { Link,useNavigate } from 'react-router-dom'
 import { UserAuth } from '../context/AuthContext';
@@ -7,11 +7,15 @@ function Signup() {
     const [email, setEmail] = useState(''); //décomposition
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const passwordConfirmRef = useRef();
     const navigate = useNavigate();
 
     const {createUser} = UserAuth();
 const onSubmit = async (e)=>{
     e.preventDefault();
+    if(password !==passwordConfirmRef.current.value){
+      return setError('Les mots de passes ne sont pas identique');
+    }
     setError('');
     try{
       await createUser(email,password);
@@ -52,7 +56,11 @@ console.log(e.message);
   </div>
   <div className="mb-3">
     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-    <input value={password}onChange={(e)=> setPassword(e.target.value)} type="password" className="form-control" id="exampleInputPassword1"/>
+    <input value={password} onChange={(e)=> setPassword(e.target.value)} type="password" className="form-control" id="exampleInputPassword1"/>
+  </div>
+  <div className="mb-3">
+    <label htmlFor="ConfirmPassword" className="form-label">Confirm Password</label>
+    <input  type="password" className="form-control" id="confirmPassword" ref={passwordConfirmRef}/>
   </div>
   <div className="mb-3 form-check">
     <input type="checkbox" className="form-check-input" id="exampleCheck1"/>

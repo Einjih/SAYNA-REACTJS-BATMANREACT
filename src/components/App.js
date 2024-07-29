@@ -10,6 +10,8 @@ import NotFoundPage from '../pages/NotFoundPage';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import { AuthContextProvider } from '../context/AuthContext';
+import ProtectedRoutes from './ProtectedRoutes';
+import Cart from '../pages/Cart';
 
 function App() {
   return (
@@ -23,9 +25,13 @@ function App() {
     <Route path='home' element={<Home/>}/>
     <Route path='game' element={<Game/>}/>
     <Route path='eshop' element={<Eshop/>}/>
-    <Route path='compte' element={<MonCompte/>}/>
+    <Route path='compte' element={
+      <ProtectedRoutes route='login'><MonCompte/></ProtectedRoutes>
+    }/>
     <Route path='login' element={<Login/>}/>
     <Route path='signup' element={<Signup/>}/>
+    <Route path='cart' element={<Cart/>}/>
+
     <Route path='*' element={<NotFoundPage/>}/>
     </Route>
   </Routes>

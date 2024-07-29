@@ -1,5 +1,5 @@
 import React, { useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import '../styles/login.css'
 import { Link } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
@@ -52,10 +52,7 @@ const onSubmit = async (e) => {
 <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
 <input value={password}onChange={(e)=> setPassword(e.target.value)} type="password" className="form-control" id="exampleInputPassword1"/>
 </div>
-<div className="mb-3 form-check">
-<input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-<label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
-</div>
+<div className=""><NavLink to='forgetPassword'>Mot de passe oublié ?</NavLink></div>
 <button type="submit" className="btn btn-primary">Submit</button>
 </form>
 
