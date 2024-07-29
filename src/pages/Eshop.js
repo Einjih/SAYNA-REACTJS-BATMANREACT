@@ -3,6 +3,7 @@ import HeroShop from '../components/HeroShop'
 import { Link } from 'react-router-dom'
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../config-firebase';
+import Products from '../components/Products';
 
 
 function Eshop() {
@@ -56,9 +57,22 @@ querySnapshot.forEach((doc) => {
           <div className="col-md-9">
           <h1 className='text-center'>Products</h1>
           <section id='products'>
+{
+  products.length > 1 && (
+    <div className="product-box">
+      <Products products={products}/>
+    </div>
+  )
+}
+{
+  products.length < 1 && (
+    <div className="">
+      <h6>Loading</h6>
+    </div>
+  )
+}
 
 
-            
           </section>
   
           </div>
