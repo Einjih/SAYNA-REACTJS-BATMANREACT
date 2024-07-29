@@ -1,0 +1,107 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Space+Grotesk:wght@300..700&display=swap');
+
+
+:root{
+    --yellow-color: #FFFF00;
+    --yellow-light: #f8f184;
+    --blue-color: #052030;
+    --white-color: rgb(255, 255, 255);
+    --red-color: #890008;
+    --whitee-color: #EDDEBF;
+    --gradient-white: rgba(237, 222, 191, 0.4);
+    --gradient-red: rgba(137, 0, 9, 0.6);
+    --black-color: #000;
+    --grey-color: #686464;
+    --gradient-blue: rgb(25, 88, 125,0.4);
+    --bluee-color: #19587D;
+
+}
+section{ 
+    background-color: black;
+}
+*{
+    
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+h1{
+    font-family: 'Rajdhani';
+    font-size: 36px;
+    font-weight: 400;
+
+}
+button{
+    font-family: 'Rajdhani';
+    font-size: 20px;
+    font-weight: 400; 
+}
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+/* Design de la navigation*/ 
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 20px;
+    
+
+}
+
+
+ul{
+    list-style: none;
+    display: flex;
+
+}
+
+nav ul a{
+    color: var(--white-color);
+    font-size: 30px;
+    font-weight: 500;
+    font-family: 'rajdhani';
+    padding: 20px;
+    text-decoration: none;
+    
+}
+
+
+nav ul a:hover{
+    color: var(--yellow-color)
+}
+.logobat:hover{
+    filter: invert(4%) sepia(48%) saturate(6073%) hue-rotate(0deg) brightness(110%) contrast(103%);
+}
+
+/** Footer */
+footer{
+    margin-top: 162px;
+
+}
+
+footer .text-footer{
+    text-align: center;
+    font-size: 14px;
+}
+
+footer .social-footer{
+    text-align: center;
+    margin: 50px 0;
+}
+footer .social-item{
+    padding: 15px;
+}
+
+.active{
+    font-weight: bolder;
+    text-decoration: underline;
+    color: white;
+}
+
+p, h1, h2{
+    color: white;
+}

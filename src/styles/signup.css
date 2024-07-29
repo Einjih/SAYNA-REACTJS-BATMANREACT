@@ -1,0 +1,25 @@
+.hero-image{
+    background-image: url(../assets/bg/bg_3.png);
+    height: 800px;
+    background-position: center;
+    background-color: black;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.formulaire{
+    background: linear-gradient(to right, rgb(18, 91, 52), rgb(1, 92, 148));
+    max-width: 35%;
+    padding: 40px;
+    margin-top: -35%;
+    border-radius: 10px;
+    
+    
+    
+}
+.form{
+    background-color: rgba(122, 122, 122, 0.848);
+    padding: 15px;
+    border-radius: 10px;
+    
+}
