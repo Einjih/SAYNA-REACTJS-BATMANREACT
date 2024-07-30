@@ -1,23 +1,26 @@
 import { useEffect, useState } from 'react'
 import HeroShop from '../components/HeroShop'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { collection, getDocs, doc, setDoc } from "firebase/firestore";
 import { db } from '../config-firebase';
 import Products from '../components/Products';
-
+import { UserAuth } from '../context/AuthContext';
 
 
 function Eshop() {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState('');
-
+  const {user} = UserAuth();
+  const navigate = useNavigate();
   
 
 
   // Lire les données produits venant de firebase
 
   const getProducts = async ()=>{
-    const productsArray = [];
+    if(user){
+      try {
+        const productsArray = [];
     const querySnapshot = await getDocs(collection(db, "products"));
 querySnapshot.forEach((doc) => {
   // doc.data() is never undefined for query doc snapshots
@@ -25,8 +28,16 @@ querySnapshot.forEach((doc) => {
   productsArray.push({id:doc.id, ...doc.data()});
   setProducts(productsArray);
 });
-
+      } catch (e) {
+        console.log(e.message)
+      }
+    }
+    else{
+      console.log('Pas d\'utilisateur')
+    }
   };
+
+
   useEffect(()=>{
     getProducts();
   }, []);
@@ -43,16 +54,33 @@ querySnapshot.forEach((doc) => {
 
    let product_cart;
    const addToCart = async (product) => {
-      try {
-        // Add a new document with a generated id
-const cartRef = doc(collection(db, "cities"));
+    
 
-// later...
-await setDoc(cartRef, product_cart);
-      } catch (e) {
-        console.log(e.message);
-      }
+        product_cart =product;
+        product_cart['qty'] = 1;
+        product_cart['totalProductPrice'] = product_cart.qty * product_cart.price;
 
+        if(user){
+
+          try {
+            try {
+              // Add a new document with a generated id
+                const cartRef = doc(collection(db, `cart${user.uid}`));
+      
+      // later...
+                await setDoc(cartRef, product_cart);
+                console.log('ajouter avec success')
+            } catch (e) {
+              console.log(e.message);
+            }
+          } catch (e) {
+            console.log(e.message)
+          }
+        }else{
+          
+          console.log('no user')
+          navigate('/login')
+        }
    }
   return (
     <>
