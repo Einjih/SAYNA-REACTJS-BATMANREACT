@@ -1,7 +1,11 @@
 import React from 'react'
 
-function ProductItem({product}) {
+function ProductItem({product, addToCart}) {
     const {title, imageUrl, description, category, price, id} = product;
+
+    const handleAddToCart = () => {
+        addToCart(product);
+    }
   return (
     <>
         <div className="product m-2 text-center">
@@ -15,7 +19,7 @@ function ProductItem({product}) {
     </div>
 
 </div>
-<button className='add-to-cart mt-3 w-100'>Add to cart</button>
+<button className='add-to-cart mt-3 w-100' onClick={handleAddToCart}>Add to cart</button>
         </div>
     </>
   )

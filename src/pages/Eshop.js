@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
 import HeroShop from '../components/HeroShop'
 import { Link } from 'react-router-dom'
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, setDoc } from "firebase/firestore";
 import { db } from '../config-firebase';
 import Products from '../components/Products';
+
 
 
 function Eshop() {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState('');
+
+  
 
 
   // Lire les données produits venant de firebase
@@ -27,6 +30,30 @@ querySnapshot.forEach((doc) => {
   useEffect(()=>{
     getProducts();
   }, []);
+
+  const filterResult = (catItem)=>{
+
+    const result = products.filter((curData)=>{
+     return curData.category === catItem;
+    })
+     setProducts(result);
+   } 
+
+   //La fonction qui me permet d'ajouter un produit au panier
+
+   let product_cart;
+   const addToCart = async (product) => {
+      try {
+        // Add a new document with a generated id
+const cartRef = doc(collection(db, "cities"));
+
+// later...
+await setDoc(cartRef, product_cart);
+      } catch (e) {
+        console.log(e.message);
+      }
+
+   }
   return (
     <>
     <HeroShop />
@@ -48,11 +75,11 @@ querySnapshot.forEach((doc) => {
             <input type="text" onChange={(e)=> setSearch(e.target.value)} class="form-control" id="exampleFormControlInput1" placeholder="Search ...."/>
             </div>  
             <h1 className='mt-4'>Filter by category</h1>
-            <button className='w-100 mb-4'>Goblet</button>
-            <button className='w-100 mb-4'>Poster</button>
-            <button className='w-100 mb-4'>Tasse</button>
-            <button className='w-100 mb-4'>T-shirt</button>
-            <button className='w-100 mb-4'>All</button>      
+            <button className='w-100 mb-4' onClick={()=>filterResult('goblet')}>Goblet</button>
+            <button className='w-100 mb-4' onClick={()=>filterResult('poster')}>Poster</button>
+            <button className='w-100 mb-4' onClick={()=>filterResult('tasse')}>Tasse</button>
+            <button className='w-100 mb-4' onClick={()=>filterResult('tshirt')}>T-shirt</button>
+            <button className='w-100 mb-4' >All</button>      
           </div>
           <div className="col-md-9">
           <h1 className='text-center'>Products</h1>
@@ -60,7 +87,7 @@ querySnapshot.forEach((doc) => {
 {
   products.length > 1 && (
     <div className="product-box">
-      <Products products={products}/>
+      <Products products={products} search={search} addToCart={addToCart}/>
     </div>
   )
 }
